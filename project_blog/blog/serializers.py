@@ -6,7 +6,6 @@ from taggit.models import Tag
 
 
 class ArticleSerializer(TaggitSerializer, serializers.ModelSerializer):
-    
     tags = TagListSerializerField()
 
     class Meta:
