@@ -7,6 +7,7 @@ from rest_framework.authtoken import views
 
 router = routers.SimpleRouter()
 router.register('articles', ArticleModelView)
+router.register('tags', TagsModelView)
 
 urlpatterns = [
     path("", include(router.urls)),

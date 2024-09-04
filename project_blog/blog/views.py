@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .serializers import ArticleSerializer
+from .serializers import ArticleSerializer, MyTagSerializer
 from .models import Article
 from rest_framework import status
 from rest_framework.response import Response
@@ -11,7 +11,6 @@ class ArticleModelView(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
 
     def get_queryset(self):
-        print(self.request.query_params)
         if 'filt_date' in self.request.query_params:
             order = self.request.query_params['filt_date']
             if order == "newest":
@@ -23,7 +22,15 @@ class ArticleModelView(viewsets.ModelViewSet):
             start_date = self.request.query_params['filt_start_date']
             end_date = self.request.query_params['filt_end_date']
             return Article.objects.filter(created_at__range=[start_date, end_date])
+        elif 'filt_tags' in self.request.query_params:
+            tags = self.request.query_params['filt_tags'].split(',')
+            return Article.objects.filter(tags__name__in=tags).distinct()
         return Article.objects.all()
+
+
+class TagsModelView(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = MyTagSerializer
 
 
 class Logout(APIView):
