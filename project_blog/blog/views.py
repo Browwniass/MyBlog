@@ -1,6 +1,9 @@
 from rest_framework import viewsets
 from .serializers import ArticleSerializer
 from .models import Article
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 class ArticleModelView(viewsets.ModelViewSet):
@@ -21,3 +24,10 @@ class ArticleModelView(viewsets.ModelViewSet):
             end_date = self.request.query_params['filt_end_date']
             return Article.objects.filter(created_at__range=[start_date, end_date])
         return Article.objects.all()
+
+
+class Logout(APIView):
+    def get(self, request, format=None):
+        # simply delete the token to force a login
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
