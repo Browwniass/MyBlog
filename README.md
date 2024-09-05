@@ -1,2 +1,11 @@
-# MyBlog
-A simple blog created for the purpose of training skills
+# Blog
+### Описание
+> Pet-project для тренировки навыков знания Django и DRF
+
+Простой личный блог. Позволяет только его Админу делать новые посты, удалять их и обновлять. Просмотр доступен всем. Также есть система тегов для постов. Предусмотрен поиск с фильтрацией по дате и тегам. Сделана аутентификация по токенам(Для авторизации админа). И сделана пагинация.
+
+### Технологии
+> Указаны в [requirements.txt](https://github.com/Browwniass/MyBlog/blob/main/requirements.txt)
+
+### Установка зависимостей
+> pip install -r requirements.txt
